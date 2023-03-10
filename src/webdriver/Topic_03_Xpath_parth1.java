@@ -45,7 +45,14 @@ public class Topic_03_Xpath_parth1 {
 
 	@Test
 	public void TC_03_() {
+		String firstName = "Anh";
+		String lastName = "Tu";
 		
+		//Noi chuoi
+		System.out.println(firstName + " " + lastName);
+		
+		//Noi chuoi
+		System.out.println(firstName.concat(" " + lastName));
 	}
 
 	@AfterClass
