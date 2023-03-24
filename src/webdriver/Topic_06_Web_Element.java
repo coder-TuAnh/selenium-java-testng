@@ -4,7 +4,9 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.exec.util.StringUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.OutputType;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -50,10 +52,14 @@ public class Topic_06_Web_Element {
 		element.getCssValue("background-color");
 		
 		//vị trí element so với web
-		element.getLocation();
-		
+		 Point point = element.getLocation();
+		 point.x = 324;
+		 point.y = 324;
+		 
 		//Kích thucos element bên trong
-		element.getSize();
+		Dimension di = element.getSize();
+		di.getHeight();
+		di.getWidth();
 		
 		element.getRect();
 		
@@ -66,10 +72,21 @@ public class Topic_06_Web_Element {
 		element.getText();
 		
 		//dùng để verify xem 1 element hiển thị hoặc ko
-		element.isDisplayed();
+		Assert.assertTrue(element.isDisplayed());
+		Assert.assertFalse(element.isDisplayed());
 		
+		//dùng để verify xem 1 element có thao tác đc ko
+		Assert.assertTrue(element.isEnabled());
+		Assert.assertFalse(element.isEnabled());
 		
+		//dùng để verify xem 1 element đc chọn hay chưa
+		//phạm vi: checkbox/ radio
+		Assert.assertTrue(element.isSelected());
+		Assert.assertFalse(element.isSelected());
 		
+		//các element nằm trong thẻ form
+		//Tương ứng hành vi login
+		element.submit();
 		
 		
 	}
