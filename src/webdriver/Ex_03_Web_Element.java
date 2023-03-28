@@ -116,6 +116,81 @@ public class Ex_03_Web_Element {
 	}
 	@Test
 	public void TC_04_MailChimp() {
+		 driver.get("https://login.mailchimp.com/signup/");
+		 
+		 driver.findElement(By.id("email")).sendKeys("email@gmail.com");
+		 By passwordTextbox = By.id("new_password");
+		 By sigupbutton = By.id("create-account-enabled");
+		 
+		 driver.findElement(passwordTextbox).sendKeys("abc");
+		 sleepInSecond(2);
+		 
+		 //verify lowercase
+		 Assert.assertTrue(driver.findElement(By.xpath("//li[@class='lowercase-char completed']")).isDisplayed());
+		 Assert.assertTrue(driver.findElement(By.xpath("//li[@class='uppercase-char not-completed']")).isDisplayed());
+		 Assert.assertTrue(driver.findElement(By.xpath("//li[@class='number-char not-completed']")).isDisplayed());
+		 Assert.assertTrue(driver.findElement(By.xpath("//li[@class='special-char not-completed']")).isDisplayed());
+		 Assert.assertTrue(driver.findElement(By.xpath("//li[@class='8-char not-completed']")).isDisplayed());
+		 
+		 driver.findElement(passwordTextbox).clear();
+		 driver.findElement(passwordTextbox).sendKeys("ABC");
+		
+		 sleepInSecond(2);
+		 
+		//verify uppercase
+		 Assert.assertTrue(driver.findElement(By.xpath("//li[@class='lowercase-char not-completed']")).isDisplayed());
+		 Assert.assertTrue(driver.findElement(By.xpath("//li[@class='uppercase-char completed']")).isDisplayed());
+		 Assert.assertTrue(driver.findElement(By.xpath("//li[@class='number-char not-completed']")).isDisplayed());
+		 Assert.assertTrue(driver.findElement(By.xpath("//li[@class='special-char not-completed']")).isDisplayed());
+		 Assert.assertTrue(driver.findElement(By.xpath("//li[@class='8-char not-completed']")).isDisplayed());
+		 
+		 driver.findElement(passwordTextbox).clear();
+		 driver.findElement(passwordTextbox).sendKeys("123");
+		
+		 sleepInSecond(2);
+		 
+		//verify number
+		 Assert.assertTrue(driver.findElement(By.xpath("//li[@class='lowercase-char not-completed']")).isDisplayed());
+		 Assert.assertTrue(driver.findElement(By.xpath("//li[@class='uppercase-char not-completed']")).isDisplayed());
+		 Assert.assertTrue(driver.findElement(By.xpath("//li[@class='number-char completed']")).isDisplayed());
+		 Assert.assertTrue(driver.findElement(By.xpath("//li[@class='special-char not-completed']")).isDisplayed());
+		 Assert.assertTrue(driver.findElement(By.xpath("//li[@class='8-char not-completed']")).isDisplayed());
+		 
+		 driver.findElement(passwordTextbox).clear();
+		 driver.findElement(passwordTextbox).sendKeys("!@#");
+		
+		 sleepInSecond(2);
+		 
+		//verify special
+		 Assert.assertTrue(driver.findElement(By.xpath("//li[@class='lowercase-char not-completed']")).isDisplayed());
+		 Assert.assertTrue(driver.findElement(By.xpath("//li[@class='uppercase-char not-completed']")).isDisplayed());
+		 Assert.assertTrue(driver.findElement(By.xpath("//li[@class='number-char not-completed']")).isDisplayed());
+		 Assert.assertTrue(driver.findElement(By.xpath("//li[@class='special-char completed']")).isDisplayed());
+		 Assert.assertTrue(driver.findElement(By.xpath("//li[@class='8-char not-completed']")).isDisplayed());
+		 
+		 driver.findElement(passwordTextbox).clear();
+		 driver.findElement(passwordTextbox).sendKeys("ABCDEFGH");
+		
+		 sleepInSecond(2);
+		 
+		//verify 8-char
+		 Assert.assertTrue(driver.findElement(By.xpath("//li[@class='lowercase-char not-completed']")).isDisplayed());
+		 Assert.assertTrue(driver.findElement(By.xpath("//li[@class='uppercase-char completed']")).isDisplayed());
+		 Assert.assertTrue(driver.findElement(By.xpath("//li[@class='number-char not-completed']")).isDisplayed());
+		 Assert.assertTrue(driver.findElement(By.xpath("//li[@class='special-char not-completed']")).isDisplayed());
+		 Assert.assertTrue(driver.findElement(By.xpath("//li[@class='8-char completed']")).isDisplayed());
+		 
+		 driver.findElement(passwordTextbox).clear();
+		 driver.findElement(passwordTextbox).sendKeys("123abcDEF@");
+		
+		 sleepInSecond(2);
+		 
+		//verify full data
+		 Assert.assertFalse(driver.findElement(By.xpath("//li[@class='lowercase-char completed']")).isDisplayed());
+		 Assert.assertFalse(driver.findElement(By.xpath("//li[@class='uppercase-char completed']")).isDisplayed());
+		 Assert.assertFalse(driver.findElement(By.xpath("//li[@class='number-char completed']")).isDisplayed());
+		 Assert.assertFalse(driver.findElement(By.xpath("//li[@class='special-char completed']")).isDisplayed());
+		 Assert.assertFalse(driver.findElement(By.xpath("//li[@class='8-char completed']")).isDisplayed());
 		 
 	}
 	
