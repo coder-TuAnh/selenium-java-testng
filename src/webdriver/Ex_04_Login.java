@@ -1,5 +1,6 @@
 package webdriver;
 
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.exec.util.StringUtils;
@@ -19,6 +20,7 @@ public class Ex_04_Login {
 	By emailTextbox = By.id("email");
 	By passwordTextbox = By.id("pass");
 	By loginButton = By.id("send2");
+	String emailAdress;
 
 	@BeforeClass
 	public void beforeClass() {
@@ -28,8 +30,12 @@ public class Ex_04_Login {
 			System.setProperty("webdriver.gecko.driver", projectPath + "/browserDrivers/geckodriver");
 		}
 
+		Random rand = new Random();
 		driver = new FirefoxDriver();
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		
+		emailAdress = "automation" + rand.nextInt(9999) + "@gmail.com";
+		
 		
 	}
 
@@ -71,7 +77,7 @@ public class Ex_04_Login {
 		driver.findElement(By.xpath("//div[@class='footer-container']//a[@title='My Account']")).click();
 		sleepInSecond(2);
 		
-		driver.findElement(emailTextbox).sendKeys("demo@gmail.com");
+		driver.findElement(emailTextbox).sendKeys(emailAdress);
 		driver.findElement(passwordTextbox).sendKeys("123");
 		driver.findElement(loginButton).click();
 		
