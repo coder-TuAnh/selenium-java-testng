@@ -58,7 +58,7 @@ public class Ex_04_Login {
 		
 		driver.findElement(By.xpath("//div[@class='footer-container']//a[@title='My Account']")).click();
 		sleepInSecond(2);
-		
+	
 		driver.findElement(emailTextbox).sendKeys("abc@123.123111");
 		driver.findElement(passwordTextbox).sendKeys("123456");
 		driver.findElement(loginButton).click();
