@@ -57,6 +57,33 @@ public class Ex_05_Textbox_Textarea {
 		driver.findElement(By.xpath("//label[text()='Confirm Password']/parent::div/following-sibling::div/input")).sendKeys("Password123@");
 		
 		driver.findElement(By.xpath("//button[@type='submit']")).click();
+		sleepInSecond(10);
+		
+		Assert.assertEquals(driver.findElement(By.name("firstName")).getAttribute("value"), "Auto");
+		Assert.assertEquals(driver.findElement(By.name("lastName")).getAttribute("value"), "Test");
+		Assert.assertEquals(driver.findElement(By.xpath("//label[text()='Employee Id']/parent::div/following-sibling::div/input")).getAttribute("value"), employeeID);
+		
+		driver.findElement(By.xpath("//a[text()='Immigration']")).click();
+		sleepInSecond(2);
+		
+		driver.findElement(By.xpath("//h6[text()='Assigned Immigration Records']/following-sibling::button")).click();
+		
+		driver.findElement(By.xpath("//label[text()='Number']/parent::div/following-sibling::div/input")).sendKeys("40517-402-96-7202");
+		driver.findElement(By.xpath("//label[text()='Comments']/parent::div/following-sibling::div/textarea")).sendKeys("This is generated data\nof real people");
+		
+		driver.findElement(By.xpath("//button[@type='submit']")).click();
+		sleepInSecond(7);
+		
+		driver.findElement(By.cssSelector("i.bi-pencil-fill")).click();
+		sleepInSecond(5);
+		
+		Assert.assertEquals(driver.findElement(By.xpath("//label[text()='Number']/parent::div/following-sibling::div/input")).getAttribute("value"), "40517-402-96-7202");
+		Assert.assertEquals(driver.findElement(By.xpath("//label[text()='Comments']/parent::div/following-sibling::div/textarea")).getAttribute("value"), "This is generated data\nof real people");
+		
+		driver.findElement(By.cssSelector("p.oxd-userdropdown-name")).click();
+		driver.findElement(By.xpath("//a[text()='Logout']")).click();
+		
+		
 		
 		
 		
