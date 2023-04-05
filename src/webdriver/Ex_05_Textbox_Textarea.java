@@ -5,7 +5,9 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.exec.util.StringUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
@@ -49,9 +51,15 @@ public class Ex_05_Textbox_Textarea {
 		//add employee
 		driver.findElement(By.xpath("//input[@name='firstName']")).sendKeys("Auto");
 		driver.findElement(By.xpath("//input[@name='lastName']")).sendKeys("Test");
-		driver.findElement(By.xpath("//label[text()='Employee Id']/parent::div/following-sibling::div/input")).sendKeys(employeeID);
-		driver.findElement(By.xpath("//p[text()='Create Login Details']/parent::div//input")).click();
+		WebElement employeeIDTextbox = driver.findElement(By.xpath("//label[text()='Employee Id']/parent::div/following-sibling::div/input"));
 		
+		employeeIDTextbox.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+		employeeIDTextbox.sendKeys(Keys.DELETE);
+		employeeIDTextbox.sendKeys(employeeID);
+		sleepInSecond(2);
+		
+		driver.findElement(By.xpath("//p[text()='Create Login Details']/parent::div//span")).click();
+		sleepInSecond(2);
 		driver.findElement(By.xpath("//label[text()='Username']/parent::div/following-sibling::div/input")).sendKeys("auto" + employeeID);
 		driver.findElement(By.xpath("//label[text()='Password']/parent::div/following-sibling::div/input")).sendKeys("Password123@");
 		driver.findElement(By.xpath("//label[text()='Confirm Password']/parent::div/following-sibling::div/input")).sendKeys("Password123@");
@@ -64,7 +72,7 @@ public class Ex_05_Textbox_Textarea {
 		Assert.assertEquals(driver.findElement(By.xpath("//label[text()='Employee Id']/parent::div/following-sibling::div/input")).getAttribute("value"), employeeID);
 		
 		driver.findElement(By.xpath("//a[text()='Immigration']")).click();
-		sleepInSecond(2);
+		sleepInSecond(5);
 		
 		driver.findElement(By.xpath("//h6[text()='Assigned Immigration Records']/following-sibling::button")).click();
 		
@@ -82,10 +90,27 @@ public class Ex_05_Textbox_Textarea {
 		
 		driver.findElement(By.cssSelector("p.oxd-userdropdown-name")).click();
 		driver.findElement(By.xpath("//a[text()='Logout']")).click();
+		sleepInSecond(7);
 		
+		driver.findElement(By.xpath("//input[@name='username']")).sendKeys("auto" + employeeID);
+		driver.findElement(By.xpath("//input[@name='password']")).sendKeys("Password123@");
+		driver.findElement(By.xpath("//button[@type='submit']")).click();
+		sleepInSecond(3);
 		
+		driver.findElement(By.xpath("//span[text()='My Info']/parent::a")).click();
+		sleepInSecond(2);
 		
+		Assert.assertEquals(driver.findElement(By.name("firstName")).getAttribute("value"), "Auto");
+		Assert.assertEquals(driver.findElement(By.name("lastName")).getAttribute("value"), "Test");
+		Assert.assertEquals(driver.findElement(By.xpath("//label[text()='Employee Id']/parent::div/following-sibling::div/input")).getAttribute("value"), employeeID);
 		
+		driver.findElement(By.xpath("//a[text()='Immigration']")).click();
+		sleepInSecond(2);
+		driver.findElement(By.cssSelector("i.bi-pencil-fill")).click();
+		sleepInSecond(5); 	
+		
+		Assert.assertEquals(driver.findElement(By.xpath("//label[text()='Number']/parent::div/following-sibling::div/input")).getAttribute("value"), "40517-402-96-7202");
+		Assert.assertEquals(driver.findElement(By.xpath("//label[text()='Comments']/parent::div/following-sibling::div/textarea")).getAttribute("value"), "This is generated data\nof real people");
 		
 		
 	}
@@ -110,7 +135,7 @@ public class Ex_05_Textbox_Textarea {
 
 	@AfterClass
 	public void afterClass() {		
-		driver.quit();
+		//driver.quit();
 		
 	}
 }
