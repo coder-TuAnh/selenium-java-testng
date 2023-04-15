@@ -36,7 +36,7 @@ public class Topic_07_Dropdown {
 	}
 
 	@Test
-	public void TC_01_() {
+	public void TC_01_SelectSreach() {
 		driver.get("https://jqueryui.com/resources/demos/selectmenu/default.html");
 		
 		selectItemInDropdown("span#speed-button", "ul#speed-menu div[role='option']", "Slower");
@@ -72,7 +72,14 @@ public class Topic_07_Dropdown {
 	}
 
 	@Test
-	public void TC_02_() {
+	public void TC_02_EnterAndSelect() {
+		driver.get("https://react.semantic-ui.com/maximize/dropdown-example-search-selection/");
+		
+		enterAndSelectItemInDropdown("input.search", "span.text", "Angola");
+		sleepInSecond(3);
+		
+		Assert.assertEquals(driver.findElement(By.cssSelector("div.divider.text")).getText(), "Angola");
+		
 	
 	}
 
@@ -98,6 +105,30 @@ public class Topic_07_Dropdown {
 			
 			//ktra text của item đúng vs cái mình mong muốn
 			if(itemText.equals(expectedTextItem)) {
+				tempItem.click();
+				
+				//thoát ra khỏi vòng lặp ko xét các case còn lại nữa
+				break;
+			}
+		}
+	}
+	
+	public void enterAndSelectItemInDropdown(String textboxCss, String allItemCss, String expectedTextItem) {
+		//1 - Nhập expected text item vào  - xổ ra tất cả các item matching
+		driver.findElement(By.cssSelector(textboxCss)).clear();
+		driver.findElement(By.cssSelector(textboxCss)).sendKeys(expectedTextItem);
+		sleepInSecond(1);
+		//2 - chờ tất cả các item đc load thành công
+		//đưa tất cả các item trong dropdown vào list
+		
+		List<WebElement> speedDropdownItems =  explicitwait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector(allItemCss)));
+		
+		for (WebElement tempItem : speedDropdownItems) {
+			String itemText = tempItem.getText();
+			
+			//ktra text của item đúng vs cái mình mong muốn
+			if(itemText.trim().equals(expectedTextItem)) {
+				sleepInSecond(1);
 				tempItem.click();
 				
 				//thoát ra khỏi vòng lặp ko xét các case còn lại nữa
