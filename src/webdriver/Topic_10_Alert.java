@@ -52,6 +52,7 @@ public class Topic_10_Alert {
 		Assert.assertEquals(alert.getText(), "I am a JS Alert");
 		
 		alert.accept();
+		sleepInSecond(3);
 		
 		Assert.assertEquals(driver.findElement(By.cssSelector("p#result")).getText(), "You clicked an alert successfully");
 		
@@ -59,11 +60,56 @@ public class Topic_10_Alert {
 
 	@Test
 	public void TC_02_() {
+		driver.get("https://automationfc.github.io/basic-form/index.html");
+		
+		driver.findElement(By.xpath("//button[text()='Click for JS Confirm']")).click();
+		sleepInSecond(2);
+		
+		// wait trc khi nó xuất hiện thì mới switch qua vs tương tác
+		alert = explicitwait.until(ExpectedConditions.alertIsPresent());
+		
+		Assert.assertEquals(alert.getText(), "I am a JS Alert");
+		
+		alert.dismiss();
+		sleepInSecond(3);
+		
+		Assert.assertEquals(driver.findElement(By.cssSelector("p#result")).getText(), "You clicked: Cancel");
 	
 	}
 
 	@Test
 	public void TC_03_() {
+		driver.get("https://automationfc.github.io/basic-form/index.html");
+		
+		driver.findElement(By.xpath("//button[text()='Click for JS Prompt']")).click();
+		sleepInSecond(2);
+		
+		// wait trc khi nó xuất hiện thì mới switch qua vs tương tác
+		alert = explicitwait.until(ExpectedConditions.alertIsPresent());
+		
+		Assert.assertEquals(alert.getText(), "I am a JS Prompt");
+		
+		String courceName = "Fullstack Selenium Java";
+		alert.sendKeys(courceName);
+		
+		alert.accept();
+		sleepInSecond(3);
+		
+		Assert.assertEquals(driver.findElement(By.cssSelector("p#result")).getText(), "You entered: " + courceName);
+	}
+	
+	@Test
+	public void TC_04_() {
+		//Truyền trực tiếp username/password vào trong chính Url này -> Tự động signIn luôn
+		driver.get("http://the-internet.herokuapp.com/basic_auth");
+		
+		
+	}
+	
+	public String passUserAndPassToUrl(String url, String username, String password) {
+		String[] arrayUrl = url.split("//");
+		
+		return arrayUrl[0] + "//" + username + ":" + password + "@" + arrayUrl[1];
 		
 	}
 	

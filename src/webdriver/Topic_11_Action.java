@@ -6,13 +6,16 @@ import org.apache.commons.exec.util.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.interactions.Action;
+import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-public class Topic_00_Template {
+public class Topic_11_Action {
 	WebDriver driver;
+	Actions action;
 	String projectPath = System.getProperty("user.dir");
 	String osName = System.getProperty("os.name");
 
@@ -25,12 +28,19 @@ public class Topic_00_Template {
 		}
 
 		driver = new FirefoxDriver();
+		action = new Actions(driver);
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		
 	}
 
 	@Test
 	public void TC_01_() {
+		driver.get("https://www.fahasa.com/");
+		
+		action.moveToElement(driver.findElement(By.cssSelector("span.icon_menu"))).perform();
+		
+		driver.findElement(By.xpath("//span[text()='Sách Trong Nước']")).click();
+		
 		
 		
 	}
