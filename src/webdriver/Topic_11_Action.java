@@ -1,10 +1,13 @@
 package webdriver;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.exec.util.StringUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
@@ -41,17 +44,47 @@ public class Topic_11_Action {
 		
 		driver.findElement(By.xpath("//span[text()='Sách Trong Nước']")).click();
 		
-		
+		Assert.assertTrue(driver.findElement(By.xpath("//span[text()='Sách Trong Nước']")).isDisplayed());
 		
 	}
 
 	@Test
-	public void TC_02_() {
+	public void TC_02_Click_And_Hold() {
+		driver.get("https://automationfc.github.io/jquery-selectable/");
+		
+		List<WebElement> listNumber = driver.findElements(By.cssSelector("ol#selectable>li"));
+		
+		// 1 - Click vào số 1
+		action.clickAndHold(listNumber.get(0)).moveToElement(listNumber.get(7)).release().perform();
+		// 2 - Vẫn giữ chuột chưa thả ra
+		// 3 - Di chuột tới số
+		// 4 - Nhả chuột ra
+		// 5 - excute
+		sleepInSecond(2);
+		
+		List<WebElement> listSelectedNumber = driver.findElements(By.cssSelector("ol#selectable>li.ui-selected"));
+		Assert.assertEquals(listSelectedNumber.size(), 8);
 	
 	}
 
 	@Test
-	public void TC_03_() {
+	public void TC_03_Click_And_Hold_Random() {
+		
+		driver.get("https://automationfc.github.io/jquery-selectable/");
+		
+		List<WebElement> listNumber = driver.findElements(By.cssSelector("ol#selectable>li"));
+		//Nhấn Ctrl xuống
+		action.keyDown(Keys.CONTROL).perform();
+		//click chọn số random
+		action.click(listNumber.get(0))
+		.click(listNumber.get(3))
+		.click(listNumber.get(5))
+		.click(listNumber.get(10)).perform();
+		//nhả phím ctrl ra
+		action.keyUp(Keys.CONTROL).perform();
+		
+		List<WebElement> listSelectedNumber = driver.findElements(By.cssSelector("ol#selectable>li.ui-selected"));
+		Assert.assertEquals(listSelectedNumber.size(), 4);
 		
 	}
 	
