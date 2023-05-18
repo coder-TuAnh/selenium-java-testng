@@ -1,10 +1,14 @@
 package webdriver;
 
+import static org.testng.Assert.assertEquals;
+
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.exec.util.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
@@ -15,6 +19,12 @@ public class Topic_17_Upload_file {
 	WebDriver driver;
 	String projectPath = System.getProperty("user.dir");
 	String osName = System.getProperty("os.name");
+	
+	String mountainName = "mountain.jpg";
+	String computerName = "computer.jpg";
+	
+	String computerFilePath = projectPath + "\\uploadfiles\\" + computerName;
+	String mountainFilePath = projectPath + "\\uploadfiles\\" + mountainName;
 
 	@BeforeClass
 	public void beforeClass() {
@@ -31,8 +41,27 @@ public class Topic_17_Upload_file {
 
 	@Test
 	public void TC_01_() {
+		driver.get("https://blueimp.github.io/jQuery-File-Upload/");
 		
+		driver.findElement(By.cssSelector("input[type='file']")).sendKeys(computerFilePath);
+		sleepInSecond(2);
+		driver.findElement(By.cssSelector("input[type='file']")).sendKeys(mountainFilePath);
+		sleepInSecond(2);
 		
+		//verify
+		Assert.assertTrue(driver.findElement(By.xpath("//p[@class='name' and text()='"+ computerName +"']")).isDisplayed());
+		Assert.assertTrue(driver.findElement(By.xpath("//p[@class='name' and text()='"+ mountainName +"']")).isDisplayed());
+		
+		//click upload
+		List<WebElement> buttonUpload = driver.findElements(By.cssSelector("table button.start"));
+		for (WebElement button : buttonUpload) {
+			button.click();
+			sleepInSecond(2);
+		}
+		
+		//verify upload thành công
+		Assert.assertTrue(driver.findElement(By.xpath("//a[text()='"+ computerName +"']")).isDisplayed());
+		Assert.assertTrue(driver.findElement(By.xpath("//a[text()='"+ mountainName +"']")).isDisplayed());
 	}
 
 	@Test
@@ -55,7 +84,7 @@ public class Topic_17_Upload_file {
 
 	@AfterClass
 	public void afterClass() {		
-		driver.quit();
+		//driver.quit();
 		
 	}
 }
