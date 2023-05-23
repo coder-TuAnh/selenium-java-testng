@@ -74,6 +74,7 @@ public class Topic_19_Wait_II {
 		
 		//click vào start button
 		driver.findElement(By.cssSelector("div#start>button")).click();
+		
 		//loading icon mất 5s mới biến mất
 		//gét text và verify
 		Assert.assertEquals(driver.findElement(By.cssSelector("div#finish>h4")).getText(), "Hello World!");
